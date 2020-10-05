@@ -30,7 +30,6 @@ def get_user_input(image_data,model):
     size=(120,120)
     image = ImageOps.fit(image_data,size, Image.ANTIALIAS)
     image = np.asarray(image)
-    image = cv2.imread(image_data)
     img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     gray = cv2.resize(img, dsize=(120, 120),    interpolation=cv2.INTER_CUBIC)
     lvar,lmax,svarX,smaxX,svarY,smaxY,scarX,scmaxX,scarY,scmaxY=laplacesobel(gray)
