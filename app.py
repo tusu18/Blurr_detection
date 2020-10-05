@@ -11,19 +11,19 @@ os.environ["NUMEXPR_NUM_THREADS"]="16"
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
 
-def load_data(file):
-    file=cv2.imread(file)
-    file=cv2.resize(file,(120,120),interpolation=cv2.INTER_CUBIC)
-    gray=cv2.cvtColor(file,cv2.COLOR_BGR2GRAY)
-    svarx=cv2.Sobel(gray,cv2.CV_64F,1,0,ksize=5).var()
+def get_user_input(image_data,model):    
+    size=(120,120)
+    image = ImageOps.fit(image_data,size, Image.ANTIALIAS)
+    image = np.asarray(image)
+    img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    gray = cv2.resize(img, dsize=(120, 120),    interpolation=cv2.INTER_CUBIC)
+    svarX=cv2.Sobel(gray,cv2.CV_64F,1,0,ksize=5).var()
     smaxY=np.amax(cv2.Sobel(gray,cv2.CV_64F,0,1,ksize=5))
-    data=np.array([smaxY,svarx])
+    data=np.array([smaxY,svarX])
     data=data.reshape(1,-1)
-    return data
+    predict=model.predict(data)
+    return predict
 model=load("blurr_class.joblib")
-def predict(data):
-    s=model.predict(data)
-    return s
 st.title("BLURR IMAGE DETECTION MODEL")
 st.markdown("This application is made for image Blurr Detection")
 st.markdown("![Alt Text](https://cnet1.cbsistatic.com/img/vIjS19RgmQrE_noolcMz-WkrANs=/1092x614/2019/05/31/a01d0905-3b69-45d8-92e1-c0a26dc7dec5/motion-blur.jpg)")
@@ -36,8 +36,7 @@ if file is None:
 else:
     image=Image.open(file)
     st.image(image,use_column_width=True)
-    data=load_data(file)
-    prd=predict(data)
+    prd=get_user_input(image,model)
     if prd[0]==-1:
        st.write("Good work its a clear pic")
     else:
