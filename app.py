@@ -19,6 +19,10 @@ def load_data(file):
     data=np.array([smaxY,svarx])
     data=data.reshape(1,-1)
     return data
+model=load("blurr_class.joblib")
+def predict(data):
+    s=model.predict(data)
+    return s
 st.title("BLURR IMAGE DETECTION MODEL")
 st.markdown("This application is made for image Blurr Detection")
 st.markdown("![Alt Text](https://cnet1.cbsistatic.com/img/vIjS19RgmQrE_noolcMz-WkrANs=/1092x614/2019/05/31/a01d0905-3b69-45d8-92e1-c0a26dc7dec5/motion-blur.jpg)")
@@ -30,18 +34,15 @@ if not st.sidebar.checkbox("Hide",True):
     if select=="Images":
         file=st.file_uploader("Please Upload an File",type=["jpg","jpeg","png"])
         data=load_data(file)   
-model=load("blurr_class.joblib")
-def predict(data):
-    s=model.predict(data)
-    return s
-if file is None:
-    st.text("Add an Image so i can give some inference")
-else:
-    image=Image.open(file)
-    st.image(image,use_column_width=True)
-    prd=predict(data)
-    if prd[0]==-1:
-        st.write("Good works its a clear pic")
-    else:
-        st.write("Man hold your hands its blurr!!")        
+
+        if file is None:
+            st.text("Add an Image so i can give some inference")
+        else:
+            image=Image.open(file)
+            st.image(image,use_column_width=True)
+            prd=predict(data)
+            if prd[0]==-1:
+                st.write("Good works its a clear pic")
+            else:
+                st.write("Man hold your hands its blurr!!")        
 
