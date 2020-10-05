@@ -10,7 +10,7 @@ os.environ["NUMEXPR_MAX_THREADS"]="16"
 os.environ["NUMEXPR_NUM_THREADS"]="16"
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
-
+@st.cache(suppress_st_warning=True)
 def get_user_input(image_data,model):    
     size=(120,120)
     image = ImageOps.fit(image_data,size, Image.ANTIALIAS)
@@ -31,7 +31,6 @@ st.sidebar.title("A better Image blurr detection")
 st.sidebar.markdown("Select from folder image")
 st.markdown("Upload Image let me tell yor skill")
 file=st.file_uploader("Please Upload an File",type=["jpg","jpeg","png"]) 
-@st.cache(suppress_st_warning=True)
 if file is None:
     st.text("Add an Image so i can give some inference")
 else:
