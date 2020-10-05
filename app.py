@@ -30,7 +30,8 @@ st.markdown("![Alt Text](https://cnet1.cbsistatic.com/img/vIjS19RgmQrE_noolcMz-W
 st.sidebar.title("A better Image blurr detection")
 st.sidebar.markdown("Select from folder image")
 st.markdown("Upload Image let me tell yor skill")
-file=st.file_uploader("Please Upload an File",type=["jpg","jpeg","png"])  
+file=st.file_uploader("Please Upload an File",type=["jpg","jpeg","png"]) 
+@st.cache(suppress_st_warning=True)
 if file is None:
     st.text("Add an Image so i can give some inference")
 else:
@@ -39,6 +40,8 @@ else:
     prd=get_user_input(image,model)
     if prd[0]==-1:
        st.write("Good work its a clear pic")
+    elif prd[0]==1:
+       st.write("Man hold your hands its blurr!!") 
     else:
-       st.write("Man hold your hands its blurr!!")        
+        st.write("Some flaw on my side")
 
