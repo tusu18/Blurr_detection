@@ -13,6 +13,7 @@ flasgger==0.9.4
 streamlit
 joblib
 opencv-python
+apt-get install libsm6 libxrender1 libfontconfig1
 
 
 
