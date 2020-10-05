@@ -9,16 +9,6 @@ os.environ["NUMEXPR_MAX_THREADS"]="16"
 os.environ["NUMEXPR_NUM_THREADS"]="16"
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
-st.title("BLURR IMAGE DETECTION MODEL")
-st.markdown("This application is made for image Blurr Detection")
-st.markdown("![Alt Text](https://cnet1.cbsistatic.com/img/vIjS19RgmQrE_noolcMz-WkrANs=/1092x614/2019/05/31/a01d0905-3b69-45d8-92e1-c0a26dc7dec5/motion-blur.jpg)")
-st.sidebar.title("A better Image blurr detection")
-st.sidebar.markdown("Select from folder image")
-select=st.sidebar.selectbox("Upload",["Images"],key="1")
-if not st.sidebar.checkbox("Hide",True):
-    st.markdown("Upload Image let me tell yor skill")
-    if select=="Images":
-        file=st.file_uploader("Please Upload an File",type=["jpg","jpeg","png"])
 @st.cache(persist=True)
 def load_data(file):
     file=cv2.imread(file)
@@ -29,7 +19,17 @@ def load_data(file):
     data=np.array([smaxY,svarx])
     data=data.reshape(1,-1)
     return data
-data=load_data(file)   
+st.title("BLURR IMAGE DETECTION MODEL")
+st.markdown("This application is made for image Blurr Detection")
+st.markdown("![Alt Text](https://cnet1.cbsistatic.com/img/vIjS19RgmQrE_noolcMz-WkrANs=/1092x614/2019/05/31/a01d0905-3b69-45d8-92e1-c0a26dc7dec5/motion-blur.jpg)")
+st.sidebar.title("A better Image blurr detection")
+st.sidebar.markdown("Select from folder image")
+select=st.sidebar.selectbox("Upload",["Images"],key="1")
+if not st.sidebar.checkbox("Hide",True):
+    st.markdown("Upload Image let me tell yor skill")
+    if select=="Images":
+        file=st.file_uploader("Please Upload an File",type=["jpg","jpeg","png"])
+        data=load_data(file)   
 model=load("blurr_class.joblib")
 def predict(data):
     s=model.predict(data)
