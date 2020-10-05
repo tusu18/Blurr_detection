@@ -25,7 +25,7 @@ def laplacesobel(gray):
 
 
     return lvar,lmax,svarX,smaxX,svarY,smaxY,scarX,scmaxX,scarY,scmaxY
-@st.cache
+
 def get_user_input(image_data,model):    
     size=(120,120)
     image = ImageOps.fit(image_data,size, Image.ANTIALIAS)
