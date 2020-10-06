@@ -13,6 +13,7 @@ flasgger==0.9.4
 streamlit
 joblib
 opencv-contrib-python-headless
+xgboost
 
 
 
