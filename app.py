@@ -12,22 +12,12 @@ import pickle
 os.environ["NUMEXPR_MAX_THREADS"]="16"
 os.environ["NUMEXPR_NUM_THREADS"]="16"
 st.set_option('deprecation.showfileUploaderEncoding', False)
-
+@st.cache(persist=True)
 def laplacesobel(gray):
-    lvar=cv2.Laplacian(gray,cv2.CV_64F).var()
-    lmax=np.amax(cv2.Laplacian(gray,cv2.CV_64F))
     svarX=cv2.Sobel(gray,cv2.CV_64F,1,0,ksize=5).var()
-    smaxX=np.amax(cv2.Sobel(gray,cv2.CV_64F,1,0,ksize=5))
-    svarY=cv2.Sobel(gray,cv2.CV_64F,0,1,ksize=5).var()
     smaxY=np.amax(cv2.Sobel(gray,cv2.CV_64F,0,1,ksize=5))
-    scarX=cv2.Scharr(gray,cv2.CV_64F,0,1).var()
-    scmaxX=np.amax(cv2.Scharr(gray,cv2.CV_64F,0,1))
-    scarY=cv2.Scharr(gray,cv2.CV_64F,1,0).var()
-    scmaxY=np.amax(cv2.Scharr(gray,cv2.CV_64F,1,0))
-
-
     return smaxY,svarX
-
+@st.cache(persist=True)
 def get_user_input(image_data,model):    
     size=(600,600)
     image = ImageOps.fit(image_data,size, Image.ANTIALIAS)
@@ -44,7 +34,7 @@ st.title("BLURR IMAGE DETECTION MODEL")
 st.markdown("This application is made for image Blurr Detection")
 st.markdown("![Alt Text](https://cnet1.cbsistatic.com/img/vIjS19RgmQrE_noolcMz-WkrANs=/1092x614/2019/05/31/a01d0905-3b69-45d8-92e1-c0a26dc7dec5/motion-blur.jpg)")
 st.sidebar.title("A better Image blurr detection")
-st.markdown("Upload Image let me tell yor skill")
+st.markdown("Upload Image let me tell your skill")
 file=st.file_uploader("Please Upload an File",type=["jpg","jpeg","png"]) 
 if file is None:
     st.text("Add an Image so i can give some inference")
