@@ -38,24 +38,26 @@ select=st.sidebar.selectbox("Details",["Inference","Dataset"],key="1")
 if not st.sidebar.checkbox("Hide",True):
     st.markdown("Inference")
     if select=="Inference":
-        st.write("Now i have taken account all the edge features using different types of filter just inorder to find") 
-	st.write("a match using the basic and most used Laplace filter,Sobel,Scharr i got Quite Heteroskedasticity")
-	st.write("in my scatter plot which was result in vast difference in variance of the the two images")
-	st.write("So i ploted using all different features and the best result i got using laplace max values of images")
-        st.write("and scharr y derivatives which i the fitted in LogisticReg model after trying several models at C=0.01, with uniform weight as data was imbalanced quite")
-        st.write("https://github.com/tusu18/Blurr_detection")
+        st.write(
+		"Now i have taken account all the edge features using different types of filter just inorder to finda match using the basic and most used Laplace filter Sobel Scharr\n" 
+		"i got Quite Heteroskedasticity in my scatter plot which was result in vast difference in variance of the the two images So i ploted using all different features and the best result\n"
+		"and scharr y derivatives which i the fitted in LogisticReg model after trying several models at C=0.01, with uniform weight as data was imbalanced quite\n"
+		"https://github.com/tusu18/Blurr_detection"
+	) 
     elif select=="Dataset":
-        st.write("The Training Set consists of:")
-        st.write("630 undistorted (clear) images")
-	st.write("220 naturally-blurred images")
-	st.write("150 artificially-distorted images")
-        st.write("The Evaluation Set consists of two individual data sets :")
-	st.write("The Natural Blur Set which consists of:")
-	st.write("589 undistorted (clear) images")
-	st.write("411 naturally-blurred images")
-	st.write("The Digital Blur Set")
-	st.write("30 undistorted (clear) images")
-	st.write("450 artificially-blurred images")    
+        st.write(
+		"The Training Set consists of:\n"
+		"630 undistorted (clear) images\n"
+		"220 naturally-blurred images\n"
+		"150 artificially-distorted images\n"
+		"The Evaluation Set consists of two individual data sets :\n"
+		"The Natural Blur Set which consists of:\n"
+		"589 undistorted (clear) images\n"
+		"411 naturally-blurred images\n"
+		"The Digital Blur Set\n"
+		"30 undistorted (clear) images\n"
+		"450 artificially-blurred images."
+	)
 st.markdown("Upload Image let me tell your skill")
 file=st.file_uploader("Please Upload an File",type=["jpg","jpeg","png"]) 
 if file is None:
