@@ -14,22 +14,22 @@ os.environ["NUMEXPR_NUM_THREADS"]="16"
 st.set_option('deprecation.showfileUploaderEncoding', False)
 @st.cache(persist=True)
 def laplacesobel(gray):
-    svarX=cv2.Sobel(gray,cv2.CV_64F,1,0,ksize=5).var()
-    smaxY=np.amax(cv2.Sobel(gray,cv2.CV_64F,0,1,ksize=5))
-    return smaxY,svarX
+    lmax=np.log(np.amax(cv2.Laplacian(gray,cv2.CV_64F)))
+    scmaxY=np.log(np.amax(cv2.Scharr(gray,cv2.CV_64F,1,0)))
+    return lmax,scmaxY
 @st.cache(persist=True)
 def get_user_input(image_data,model):    
-    size=(600,600)
+    size=(120,120)
     image = ImageOps.fit(image_data,size, Image.ANTIALIAS)
     image = np.asarray(image)
     img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    gray = cv2.resize(img, dsize=(600,600),    interpolation=cv2.INTER_CUBIC)
+    gray = cv2.resize(img, dsize=(120,120),    interpolation=cv2.INTER_CUBIC)
     smaxY,svarX=laplacesobel(gray)
     data=np.array([smaxY,svarX])
     data=data.reshape(1,-1)
     predict=model.predict(data)
     return predict
-model=load("blurr_logistic.pkcl")
+model=load("Blurr_Model_Logit_19b.joblib")
 st.title("BLURR IMAGE DETECTION MODEL")
 st.markdown("This application is made for image Blurr Detection")
 st.markdown("![Alt Text](https://cnet1.cbsistatic.com/img/vIjS19RgmQrE_noolcMz-WkrANs=/1092x614/2019/05/31/a01d0905-3b69-45d8-92e1-c0a26dc7dec5/motion-blur.jpg)")
