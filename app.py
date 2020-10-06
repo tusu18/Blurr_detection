@@ -39,7 +39,7 @@ def get_user_input(image_data,model):
     data=data.reshape(1,-1)
     predict=model.predict(data)
     return predict
-model=load("blurr_grad.pkcl")
+model=load("blurr_logistic.pkcl")
 st.title("BLURR IMAGE DETECTION MODEL")
 st.markdown("This application is made for image Blurr Detection")
 st.markdown("![Alt Text](https://cnet1.cbsistatic.com/img/vIjS19RgmQrE_noolcMz-WkrANs=/1092x614/2019/05/31/a01d0905-3b69-45d8-92e1-c0a26dc7dec5/motion-blur.jpg)")
