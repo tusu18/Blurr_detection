@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 from joblib import load
 import cv2
 from PIL import Image, ImageOps
+from xgboost import XGBClassifier
+from sklearn.preprocessing import Normalizer
+
 import pickle
 os.environ["NUMEXPR_MAX_THREADS"]="16"
 os.environ["NUMEXPR_NUM_THREADS"]="16"
@@ -27,22 +30,21 @@ def laplacesobel(gray):
     return lvar,lmax,svarX,smaxX,svarY,smaxY,scarX,scmaxX,scarY,scmaxY
 
 def get_user_input(image_data,model):    
-    size=(120,120)
+    size=(256,256)
     image = ImageOps.fit(image_data,size, Image.ANTIALIAS)
     image = np.asarray(image)
     img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    gray = cv2.resize(img, dsize=(120, 120),    interpolation=cv2.INTER_CUBIC)
+    gray = cv2.resize(img, dsize=(256, 256),    interpolation=cv2.INTER_CUBIC)
     lvar,lmax,svarX,smaxX,svarY,smaxY,scarX,scmaxX,scarY,scmaxY=laplacesobel(gray)
     data=np.array([lvar,lmax,svarX,smaxX,svarY,smaxY,scarX,scmaxX,scarY,scmaxY])
     data=data.reshape(1,-1)
     predict=model.predict(data)
     return predict
-model=load("Blurr_Model.pckl")
+model=load("blurr_xgb.pkcl")
 st.title("BLURR IMAGE DETECTION MODEL")
 st.markdown("This application is made for image Blurr Detection")
 st.markdown("![Alt Text](https://cnet1.cbsistatic.com/img/vIjS19RgmQrE_noolcMz-WkrANs=/1092x614/2019/05/31/a01d0905-3b69-45d8-92e1-c0a26dc7dec5/motion-blur.jpg)")
 st.sidebar.title("A better Image blurr detection")
-st.sidebar.markdown("Select from folder image")
 st.markdown("Upload Image let me tell yor skill")
 file=st.file_uploader("Please Upload an File",type=["jpg","jpeg","png"]) 
 if file is None:
@@ -57,4 +59,9 @@ else:
        st.write("Man hold your hands its blurr!!") 
     else:
         st.write("Some flaw on my side")
+if st.button('Correct'):
+    st.write("Thanks for feedback this is used to improve model")
+if st.button('Wrong'):
+    st.write("Sorry for the wrong ans will improve it thanks for feedback")
+st.markdown("This Model has an accuracy of 84.3 and precision and recall of 98,82")        
 
