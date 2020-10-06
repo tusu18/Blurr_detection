@@ -30,14 +30,14 @@ def get_user_input(image_data,model):
     predict=model.predict(data)
     return predict
 model=load("Blurr_Model_Logit_19b.joblib")
-st.title("BLURR IMAGE DETECTION MODEL")
-st.markdown("This application is made for image Blurr Detection")
-st.markdown("![Alt Text](https://cnet1.cbsistatic.com/img/vIjS19RgmQrE_noolcMz-WkrANs=/614x614/2019/05/31/a01d0905-3b69-45d8-92e1-c0a26dc7dec5/motion-blur.jpg)")
-st.sidebar.title("A better Image blurr detection")
+st.title("BLUR IMAGE DETECTION MODEL")
+st.markdown("This application is made for image Blur Detection")
+st.markdown("![Alt Text](https://m-cdn.phonearena.com/images/article/114598-two_1600/Your-phone-is-taking-blurry-pictures-Heres-an-easy-fix.webp)")
+st.sidebar.title("A better Image blur detection")
 select=st.sidebar.selectbox("Details",["Inference","Dataset"],key="1")
 if not st.sidebar.checkbox("Hide",True):
-    st.markdown("Inference")
     if select=="Inference":
+	st.markdown("Inference:")
         st.write(
 		"Now i have taken account all the edge features using different types of filter just inorder to finda match using the basic and most used Laplace filter Sobel Scharr\n" 
 		"i got Quite Heteroskedasticity in my scatter plot which was result in vast difference in variance of the the two images So i ploted using all different features and the best result\n"
@@ -45,7 +45,9 @@ if not st.sidebar.checkbox("Hide",True):
 		"https://github.com/tusu18/Blurr_detection"
 	) 
     elif select=="Dataset":
+	st.markdown("Dataset:")
         st.write(
+		"CERTH Image Blur Dataset!!!\n"
 		"The Training Set consists of:\n"
 		"630 undistorted (clear) images\n"
 		"220 naturally-blurred images\n"
@@ -73,8 +75,9 @@ else:
     else:
         st.write("Some flaw on my side")
 if st.button('Correct'):
-    st.write("Thanks for feedback this is used to improve model")
+    st.write("Thanks for feedback this is used to improve model!")
 if st.button('Wrong'):
-    st.write("Sorry for the wrong ans will improve it thanks for feedback")
-st.markdown("This Model has an accuracy of 86")        
+    st.write("Sorry for the wrong ans will improve it thanks for feedback!")
+st.markdown("This Model has an accuracy of 86 on eval set of CERT Dataset")  
+st.markdown("https://github.com/tusu18/Blurr_detection")
 
