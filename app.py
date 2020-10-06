@@ -37,7 +37,6 @@ st.sidebar.title("A better Image blur detection")
 select=st.sidebar.selectbox("Details",["Inference","Dataset"],key="1")
 if not st.sidebar.checkbox("Hide",True):
     if select=="Inference":
-	st.markdown("Inference")
         st.write(
 		"Now i have taken account all the edge features using different types of filter just inorder to finda match using the basic and most used Laplace filter Sobel Scharr\n" 
 		"i got Quite Heteroskedasticity in my scatter plot which was result in vast difference in variance of the the two images So i ploted using all different features and the best result\n"
@@ -45,7 +44,6 @@ if not st.sidebar.checkbox("Hide",True):
 		"https://github.com/tusu18/Blurr_detection"
 	) 
     elif select=="Dataset":
-	st.markdown("Dataset")
         st.write(
 		"CERTH Image Blur Dataset!!!\n"
 		"The Training Set consists of:\n"
