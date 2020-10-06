@@ -25,12 +25,11 @@ def laplacesobel(gray):
 
 
     return lvar,lmax,svarX,smaxX,svarY,smaxY,scarX,scmaxX,scarY,scmaxY
-@st.cache
+
 def get_user_input(image_data,model):    
     size=(120,120)
     image = ImageOps.fit(image_data,size, Image.ANTIALIAS)
     image = np.asarray(image)
-    image = cv2.imread(image_data)
     img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     gray = cv2.resize(img, dsize=(120, 120),    interpolation=cv2.INTER_CUBIC)
     lvar,lmax,svarX,smaxX,svarY,smaxY,scarX,scmaxX,scarY,scmaxY=laplacesobel(gray)
@@ -38,7 +37,7 @@ def get_user_input(image_data,model):
     data=data.reshape(1,-1)
     predict=model.predict(data)
     return predict
-model=joblib.load("Blurr_Model.pckl")
+model=load("Blurr_Model.pckl")
 st.title("BLURR IMAGE DETECTION MODEL")
 st.markdown("This application is made for image Blurr Detection")
 st.markdown("![Alt Text](https://cnet1.cbsistatic.com/img/vIjS19RgmQrE_noolcMz-WkrANs=/1092x614/2019/05/31/a01d0905-3b69-45d8-92e1-c0a26dc7dec5/motion-blur.jpg)")
