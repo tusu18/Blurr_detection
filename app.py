@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 from joblib import load
 import cv2
 from PIL import Image, ImageOps
+from xgboost import XGBClassifier
+from sklearn.preprocessing import Normalizer
+
 import pickle
 os.environ["NUMEXPR_MAX_THREADS"]="16"
 os.environ["NUMEXPR_NUM_THREADS"]="16"
